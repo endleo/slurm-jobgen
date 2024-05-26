@@ -58,13 +58,13 @@
                     "additional_sbatch_params": [],
                     "exec_path": "reprompi/bin/mpibenchmark",
                     "exec_params": [
-                        "--calls-list=MPI_Alltotall",
+                        "--calls-list=MPI_Alltoall",
                         "--msizes-list=4,8,16,32,64,128,256",
                         "--nrep=5000"
                     ]
                 },
                 {
-                    "name": "reproc_large",
+                    "name": "reproc_allreduce_large",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
@@ -77,7 +77,7 @@
                     ]
                 },
                 {
-                    "name": "reproj",
+                    "name": "reproj_allreduce",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
@@ -90,7 +90,7 @@
                     ]
                 },
                 {
-                    "name": "reproj_large",
+                    "name": "reproj_allreduce_large",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
@@ -100,6 +100,32 @@
                         "--calls-list=MPI_Allreduce",
                         "--msizes-list=100000000,500000000,1000000000",
                         "--nrep=100"
+                    ]
+                },
+                {
+                    "name": "reproj_bcast",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "additional_sbatch_params": [],
+                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                    "exec_params": [
+                        "--calls-list=MPI_Bcast",
+                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                        "--nrep=5000"
+                    ]
+                },
+                {
+                    "name": "reproj_alltoall",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "additional_sbatch_params": [],
+                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                    "exec_params": [
+                        "--calls-list=MPI_Alltoall",
+                        "--msizes-list=4,8,16,32,64,128,256",
+                        "--nrep=5000"
                     ]
                 }
             ]
