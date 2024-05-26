@@ -1,0 +1,74 @@
+{
+    "machines": [
+        {
+            "name": "hydra",
+            "sbatch_params": [
+                "-p q_thesis"
+            ],
+            "runs": [
+                {
+                    "name": "reproc",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "additional_sbatch_params": [],
+                    "exec_path": "reprompi/bin/mpibenchmark",
+                    "exec_params": [
+                        "--calls-list=MPI_Allreduce",
+                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                        "--nrep=5000"
+                    ]
+                },
+                {
+                    "name": "reproc_large",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "additional_sbatch_params": [],
+                    "exec_path": "reprompi/bin/mpibenchmark",
+                    "exec_params": [
+                        "--calls-list=MPI_Allreduce",
+                        "--msizes-list=100000000,500000000,1000000000",
+                        "--nrep=100"
+                    ]
+                },
+                {
+                    "name": "reproj",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "additional_sbatch_params": [],
+                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                    "exec_params": [
+                        "--calls-list=MPI_Allreduce",
+                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                        "--nrep=100"
+                    ]
+                },
+                {
+                    "name": "reproj_large",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "additional_sbatch_params": [],
+                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                    "exec_params": [
+                        "--calls-list=MPI_Allreduce",
+                        "--msizes-list=100000000,500000000,1000000000",
+                        "--nrep=100"
+                    ]
+                }
+            ]
+        },
+        {
+            "name" : "discoverer",
+            "sbatch_params" : [
+                "--partition=cn",
+                "--qos=ehpc-dev-2023d06-045",
+                "--account=ehpc-dev-2023d06-045"
+            ],
+            "runs" : [
+            ]
+        }
+    ]
+}
