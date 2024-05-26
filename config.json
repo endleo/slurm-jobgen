@@ -7,7 +7,25 @@
             ],
             "runs": [
                 {
-                    "name": "reproc",
+                    "name": "osuc",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "exec_path": "osucbench/osu-micro-benchmarks-7.3/c/mpi/collective/blocking/osu_allreduce",
+                    "exec_params": [
+                        "-f"
+                    ]
+                },
+                {
+                    "name": "osuj",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "exec_path": "julia osu_allreduce.jl",
+                    "no_output" : true
+                },
+                {
+                    "name": "reproc_allreduce",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
@@ -16,6 +34,32 @@
                     "exec_params": [
                         "--calls-list=MPI_Allreduce",
                         "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                        "--nrep=5000"
+                    ]
+                },
+                {
+                    "name": "reproc_bcast",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "additional_sbatch_params": [],
+                    "exec_path": "reprompi/bin/mpibenchmark",
+                    "exec_params": [
+                        "--calls-list=MPI_Bcast",
+                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                        "--nrep=5000"
+                    ]
+                },
+                {
+                    "name": "reproc_alltoall",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "additional_sbatch_params": [],
+                    "exec_path": "reprompi/bin/mpibenchmark",
+                    "exec_params": [
+                        "--calls-list=MPI_Alltotall",
+                        "--msizes-list=4,8,16,32,64,128,256",
                         "--nrep=5000"
                     ]
                 },
