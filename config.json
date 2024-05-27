@@ -190,8 +190,8 @@
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
-                        "export PATH=HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=HOME/local/gsl/lib:$LD_LIBRARY_PATH"
+                        "export PATH=$HOME/local/gsl/bin:$PATH",
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
                     ],
                     "exec_path": "reprompi/bin/mpibenchmark",
                     "exec_params": [
@@ -207,8 +207,8 @@
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
-                        "export PATH=HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=HOME/local/gsl/lib:$LD_LIBRARY_PATH"
+                        "export PATH=$HOME/local/gsl/bin:$PATH",
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
                     ],
                     "exec_path": "reprompi/bin/mpibenchmark",
                     "exec_params": [
@@ -224,8 +224,8 @@
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
-                        "export PATH=HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=HOME/local/gsl/lib:$LD_LIBRARY_PATH"
+                        "export PATH=$HOME/local/gsl/bin:$PATH",
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
                     ],
                     "exec_path": "reprompi/bin/mpibenchmark",
                     "exec_params": [
@@ -241,8 +241,8 @@
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
-                        "export PATH=HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=HOME/local/gsl/lib:$LD_LIBRARY_PATH"
+                        "export PATH=$HOME/local/gsl/bin:$PATH",
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
                     ],
                     "exec_path": "reprompi/bin/mpibenchmark",
                     "exec_params": [
@@ -258,8 +258,8 @@
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
-                        "export PATH=HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=HOME/local/gsl/lib:$LD_LIBRARY_PATH"
+                        "export PATH=$HOME/local/gsl/bin:$PATH",
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
                     ],
                     "exec_path": "reprompi/bin/mpibenchmark",
                     "exec_params": [
