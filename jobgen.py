@@ -26,6 +26,10 @@ with open("config.json") as config_file:
                 batchfile.write(f"#SBATCH --time={run['time']}\n")
                 batchfile.write("\n")
 
+                if "setup_commands" in run:
+                    for p in run["setup_commands"]:
+                        batchfile.write(f"{p}\n")
+
                 batchfile.write(f"srun {run['exec_path']}")
                 if "exec_params" in run:
                     for p in run["exec_params"]:
