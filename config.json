@@ -25,6 +25,23 @@
                     "no_output" : true
                 },
                 {
+                    "name": "osuc_latency",
+                    "n_nodes": 2,
+                    "n_tasks": 1,
+                    "time": "1:00:00",
+                    "exec_path": "osucbench/osu-micro-benchmarks-7.3/c/mpi/pt2pt/standard/osu_latency",
+                    "exec_params": [
+                    ]
+                },
+                {
+                    "name": "osuj_latency",
+                    "n_nodes": 2,
+                    "n_tasks": 1,
+                    "time": "1:00:00",
+                    "exec_path": "julia osu_latency.jl",
+                    "no_output" : true
+                },
+                {
                     "name": "reproc_allreduce",
                     "n_nodes": 32,
                     "n_tasks": 32,
@@ -181,6 +198,26 @@
                         "module load openmpi/4/gcc/latest"
                     ],
                     "exec_path": "julia osu_allreduce.jl",
+                    "no_output" : true
+                },
+                {
+                    "name": "osuc_latency",
+                    "n_nodes": 2,
+                    "n_tasks": 1,
+                    "time": "1:00:00",
+                    "exec_path": "osu-micro-benchmarks-7.3/c/mpi/pt2pt/standard/osu_latency",
+                    "exec_params": [
+                    ]
+                },
+                {
+                    "name": "osuj_latency",
+                    "n_nodes": 2,
+                    "n_tasks": 1,
+                    "time": "1:00:00",
+                    "setup_commands": [
+                        "module load openmpi/4/gcc/latest"
+                    ],
+                    "exec_path": "julia osu_latency.jl",
                     "no_output" : true
                 },
                 {
