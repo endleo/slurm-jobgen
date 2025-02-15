@@ -7,377 +7,303 @@
             ],
             "runs": [
                 {
-                    "name": "osuc",
+                    "name": "allreduce",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
-                    "exec_path": "osucbench/osu-micro-benchmarks-7.3/c/mpi/collective/blocking/osu_allreduce",
-                    "exec_params": [
-                        "-f"
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                                "--nrep=5000"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                                "--nrep=100"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 },
                 {
-                    "name": "osuj",
+                    "name": "bcast",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
-                    "exec_path": "julia osu_allreduce.jl",
-                    "no_output" : true
-                },
-                {
-                    "name": "osuc_latency",
-                    "n_nodes": 2,
-                    "n_tasks": 1,
-                    "time": "1:00:00",
-                    "exec_path": "osucbench/osu-micro-benchmarks-7.3/c/mpi/pt2pt/standard/osu_latency",
-                    "exec_params": [
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Bcast",
+                                "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                                "--nrep=5000"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Bcast",
+                                "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                                "--nrep=5000"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 },
                 {
-                    "name": "osuj_latency",
-                    "n_nodes": 2,
-                    "n_tasks": 1,
-                    "time": "1:00:00",
-                    "exec_path": "julia osu_latency.jl",
-                    "no_output" : true
-                },
-                {
-                    "name": "reproc_allreduce",
+                    "name": "alltoall",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
-                    "additional_sbatch_params": [],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Allreduce",
-                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
-                        "--nrep=5000"
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Alltoall",
+                                "--msizes-list=4,8,16,32,64,128,256",
+                                "--nrep=5000"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Alltoall",
+                                "--msizes-list=4,8,16,32,64,128,256",
+                                "--nrep=5000"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 },
                 {
-                    "name": "reproc_bcast",
+                    "name": "bcast_large",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
-                    "additional_sbatch_params": [],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Bcast",
-                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
-                        "--nrep=5000"
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Bcast",
+                                "--msizes-list=100000000,500000000,1000000000",
+                                "--nrep=100"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Bcast",
+                                "--msizes-list=100000000,500000000,1000000000",
+                                "--nrep=100"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 },
                 {
-                    "name": "reproc_bcast_large",
+                    "name": "allreduce_large",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
-                    "additional_sbatch_params": [],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Bcast",
-                        "--msizes-list=100000000,500000000,1000000000",
-                        "--nrep=100"
-                    ]
-                },
-                {
-                    "name": "reproc_alltoall",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "additional_sbatch_params": [],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Alltoall",
-                        "--msizes-list=4,8,16,32,64,128,256",
-                        "--nrep=5000"
-                    ]
-                },
-                {
-                    "name": "reproc_allreduce_large",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "additional_sbatch_params": [],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Allreduce",
-                        "--msizes-list=100000000,500000000,1000000000",
-                        "--nrep=100"
-                    ]
-                },
-                {
-                    "name": "reproj_allreduce",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Allreduce",
-                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
-                        "--nrep=100"
-                    ]
-                },
-                {
-                    "name": "reproj_allreduce_large",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Allreduce",
-                        "--msizes-list=100000000,500000000,1000000000",
-                        "--nrep=100"
-                    ]
-                },
-                {
-                    "name": "reproj_bcast",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "additional_sbatch_params": [],
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Bcast",
-                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
-                        "--nrep=5000"
-                    ]
-                },
-                {
-                    "name": "reproj_bcast_large",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "additional_sbatch_params": [],
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Bcast",
-                        "--msizes-list=100000000,500000000,1000000000",
-                        "--nrep=100"
-                    ]
-                },
-                {
-                    "name": "reproj_alltoall",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "additional_sbatch_params": [],
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Alltoall",
-                        "--msizes-list=4,8,16,32,64,128,256",
-                        "--nrep=5000"
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=100000000,500000000,1000000000",
+                                "--nrep=100"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=100000000,500000000,1000000000",
+                                "--nrep=100"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 }
             ]
         },
         {
-            "name" : "discoverer",
-            "sbatch_params" : [
+            "name": "discoverer",
+            "sbatch_params": [
                 "--partition=cn",
                 "--qos=ehpc-dev-2023d06-045",
                 "--account=ehpc-dev-2023d06-045"
             ],
-            "runs" : [
+            "runs": [
                 {
-                    "name": "osuc",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "exec_path": "osu-micro-benchmarks-7.3/c/mpi/collective/blocking/osu_allreduce",
-                    "exec_params": [
-                        "-f"
-                    ]
-                },
-                {
-                    "name": "osuj",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "setup_commands": [
-                        "module load openmpi/4/gcc/latest"
-                    ],
-                    "exec_path": "julia osu_allreduce.jl",
-                    "no_output" : true
-                },
-                {
-                    "name": "osuc_latency",
-                    "n_nodes": 2,
-                    "n_tasks": 1,
-                    "time": "1:00:00",
-                    "exec_path": "osu-micro-benchmarks-7.3/c/mpi/pt2pt/standard/osu_latency",
-                    "exec_params": [
-                    ]
-                },
-                {
-                    "name": "osuj_latency",
-                    "n_nodes": 2,
-                    "n_tasks": 1,
-                    "time": "1:00:00",
-                    "setup_commands": [
-                        "module load openmpi/4/gcc/latest"
-                    ],
-                    "exec_path": "julia osu_latency.jl",
-                    "no_output" : true
-                },
-                {
-                    "name": "reproc_allreduce",
+                    "name": "allreduce",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
                         "export PATH=$HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH",
+                        "module load openmpi/4/gcc/latest"
                     ],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Allreduce",
-                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
-                        "--nrep=5000"
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                                "--nrep=5000"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                                "--nrep=100"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 },
                 {
-                    "name": "reproc_bcast",
+                    "name": "bcast",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
                         "export PATH=$HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH",
+                        "module load openmpi/4/gcc/latest"
                     ],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Bcast",
-                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
-                        "--nrep=5000"
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Bcast",
+                                "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                                "--nrep=5000"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Bcast",
+                                "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
+                                "--nrep=5000"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 },
                 {
-                    "name": "reproc_bcast_large",
+                    "name": "bcast_large",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
                         "export PATH=$HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH",
+                        "module load openmpi/4/gcc/latest"
                     ],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Bcast",
-                        "--msizes-list=100000000,500000000,1000000000",
-                        "--nrep=100"
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Bcast",
+                                "--msizes-list=100000000,500000000,1000000000",
+                                "--nrep=100"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Bcast",
+                                "--msizes-list=100000000,500000000,1000000000",
+                                "--nrep=100"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 },
                 {
-                    "name": "reproc_alltoall",
+                    "name": "alltoall",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
                         "export PATH=$HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH",
+                        "module load openmpi/4/gcc/latest"
                     ],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Alltoall",
-                        "--msizes-list=4,8,16,32,64,128,256",
-                        "--nrep=5000"
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Alltoall",
+                                "--msizes-list=4,8,16,32,64,128,256",
+                                "--nrep=5000"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Alltoall",
+                                "--msizes-list=4,8,16,32,64,128,256",
+                                "--nrep=5000"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 },
                 {
-                    "name": "reproc_allreduce_large",
+                    "name": "allreduce_large",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
                     "setup_commands": [
                         "module load openmpi/4/gcc/latest",
                         "export PATH=$HOME/local/gsl/bin:$PATH",
-                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH"
-                    ],
-                    "exec_path": "reprompi/bin/mpibenchmark",
-                    "exec_params": [
-                        "--calls-list=MPI_Allreduce",
-                        "--msizes-list=100000000,500000000,1000000000",
-                        "--nrep=100"
-                    ]
-                },
-                {
-                    "name": "reproj_allreduce",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "setup_commands": [
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH",
                         "module load openmpi/4/gcc/latest"
                     ],
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Allreduce",
-                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
-                        "--nrep=100"
-                    ]
-                },
-                {
-                    "name": "reproj_allreduce_large",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "setup_commands": [
-                        "module load openmpi/4/gcc/latest"
-                    ],
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Allreduce",
-                        "--msizes-list=100000000,500000000,1000000000",
-                        "--nrep=100"
-                    ]
-                },
-                {
-                    "name": "reproj_bcast",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "setup_commands": [
-                        "module load openmpi/4/gcc/latest"
-                    ],
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Bcast",
-                        "--msizes-list=4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144",
-                        "--nrep=5000"
-                    ]
-                },
-                {
-                    "name": "reproj_bcast_large",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "setup_commands": [
-                        "module load openmpi/4/gcc/latest"
-                    ],
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Bcast",
-                        "--msizes-list=100000000,500000000,1000000000",
-                        "--nrep=100"
-                    ]
-                },
-                {
-                    "name": "reproj_alltoall",
-                    "n_nodes": 32,
-                    "n_tasks": 32,
-                    "time": "1:00:00",
-                    "setup_commands": [
-                        "module load openmpi/4/gcc/latest"
-                    ],
-                    "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
-                    "exec_params": [
-                        "--calls-list=MPI_Alltoall",
-                        "--msizes-list=4,8,16,32,64,128,256",
-                        "--nrep=5000"
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=100000000,500000000,1000000000",
+                                "--nrep=100"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=100000000,500000000,1000000000",
+                                "--nrep=100"
+                            ],
+                            "tag": "j1"
+                        }
                     ]
                 }
             ]

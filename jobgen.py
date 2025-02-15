@@ -30,10 +30,18 @@ with open("config.json") as config_file:
                     for p in run["setup_commands"]:
                         batchfile.write(f"{p}\n")
 
-                batchfile.write(f"srun {run['exec_path']}")
-                if "exec_params" in run:
-                    for p in run["exec_params"]:
-                        batchfile.write(f" {p}")
-                if "no_output" in run and run["no_output"]:
-                    continue
-                batchfile.write(f" > results/{machine['name']}/{run['name']}_$SLURM_JOB_ID.txt\n")
+                if "execs" in run:
+                    for id, execute in enumerate(run["execs"]):
+                        batchfile.write(f"srun {execute['exec_path']}")
+                        if "exec_params" in execute:
+                            for p in execute["exec_params"]:
+                                batchfile.write(f" {p}")
+                        if not "no_output" in run or not run["no_output"]:
+                            batchfile.write(f" > results/{machine['name']}/{run['name']}_{id}{"_"+execute["tag"] if "tag" in execute else ""}_$SLURM_JOB_ID.txt\n")
+                else:
+                    batchfile.write(f"srun {run['exec_path']}")
+                    if "exec_params" in run:
+                        for p in run["exec_params"]:
+                            batchfile.write(f" {p}")
+                    if not "no_output" in run or not run["no_output"]:
+                        batchfile.write(f" > results/{machine['name']}/{run['name']}_$SLURM_JOB_ID.txt\n")
