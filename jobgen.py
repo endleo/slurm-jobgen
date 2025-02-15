@@ -37,7 +37,7 @@ with open("config.json") as config_file:
                             for p in execute["exec_params"]:
                                 batchfile.write(f" {p}")
                         if not "no_output" in run or not run["no_output"]:
-                            batchfile.write(f" > results/{machine['name']}/{run['name']}_{id}{"_"+execute["tag"] if "tag" in execute else ""}_$SLURM_JOB_ID.txt\n")
+                            batchfile.write(f" > results/{machine['name']}/{run['name']}_{id}{'_'+execute['tag'] if 'tag' in execute else ''}_$SLURM_JOB_ID.txt\n")
                 else:
                     batchfile.write(f"srun {run['exec_path']}")
                     if "exec_params" in run:
