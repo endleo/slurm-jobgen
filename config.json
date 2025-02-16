@@ -213,7 +213,7 @@
                             "exec_params": [
                                 "--calls-list=MPI_Allreduce",
                                 "--msizes-list=500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000,10500,11000,11500,12000,12500,13000,13500,14000,14500,15000,15500,16000,16500,17000",
-                                "--nrep=5000"
+                                "--nrep=2000"
                             ],
                             "tag": "c2"
                         },
@@ -223,6 +223,56 @@
                                 "--calls-list=MPI_Allreduce",
                                 "--msizes-list=500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000,10500,11000,11500,12000,12500,13000,13500,14000,14500,15000,15500,16000,16500,17000",
                                 "--nrep=2000"
+                            ],
+                            "tag": "j2"
+                        }
+                    ]
+                },
+                {
+                    "name": "allreduce_detail_2",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "setup_commands": [
+                        "module load openmpi/4/gcc/latest",
+                        "export PATH=$HOME/local/gsl/bin:$PATH",
+                        "export LD_LIBRARY_PATH=$HOME/local/gsl/lib:$LD_LIBRARY_PATH",
+                        "module load openmpi/4/gcc/latest"
+                    ],
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=16000,16050,16100,16150,16200,16250,16300,16350,16400,16450,16500",
+                                "--nrep=5000"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=16000,16050,16100,16150,16200,16250,16300,16350,16400,16450,16500",
+                                "--nrep=5000"
+                            ],
+                            "tag": "j1"
+                        },
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=16000,16050,16100,16150,16200,16250,16300,16350,16400,16450,16500",
+                                "--nrep=5000"
+                            ],
+                            "tag": "c2"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Allreduce",
+                                "--msizes-list=16000,16050,16100,16150,16200,16250,16300,16350,16400,16450,16500",
+                                "--nrep=5000"
                             ],
                             "tag": "j2"
                         }
