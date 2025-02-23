@@ -449,7 +449,7 @@
                     ]
                 },
                 {
-                    "name": "bcast",
+                    "name": "bcast_one_node",
                     "n_nodes": 1,
                     "n_tasks": 32,
                     "time": "1:00:00",
