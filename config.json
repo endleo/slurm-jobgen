@@ -11,6 +11,9 @@
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
+                    "setup_commands": [
+                        "export PMIX_MCA_psec=^munge"
+                    ],
                     "execs": [
                         {
                             "exec_path": "reprompi/bin/mpibenchmark",
@@ -37,6 +40,9 @@
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
+                    "setup_commands": [
+                        "export PMIX_MCA_psec=^munge"
+                    ],
                     "execs": [
                         {
                             "exec_path": "reprompi/bin/mpibenchmark",
@@ -63,6 +69,9 @@
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
+                    "setup_commands": [
+                        "export PMIX_MCA_psec=^munge"
+                    ],
                     "execs": [
                         {
                             "exec_path": "reprompi/bin/mpibenchmark",
@@ -89,6 +98,9 @@
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
+                    "setup_commands": [
+                        "export PMIX_MCA_psec=^munge"
+                    ],
                     "execs": [
                         {
                             "exec_path": "reprompi/bin/mpibenchmark",
@@ -111,10 +123,42 @@
                     ]
                 },
                 {
+                    "name": "alltoall_2",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "setup_commands": [
+                        "export PMIX_MCA_psec=^munge"
+                    ],
+                    "execs": [
+                        {
+                            "exec_path": "reprompi/bin/mpibenchmark",
+                            "exec_params": [
+                                "--calls-list=MPI_Alltoall",
+                                "--msizes-list=256,512,1024,2048",
+                                "--nrep=200"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia steinerRepro/reprompijl/src/reprompijl.jl",
+                            "exec_params": [
+                                "--calls-list=MPI_Alltoall",
+                                "--msizes-list=256,512,1024,2048",
+                                "--nrep=200"
+                            ],
+                            "tag": "j1"
+                        }
+                    ]
+                },
+                {
                     "name": "bcast_large",
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
+                    "setup_commands": [
+                        "export PMIX_MCA_psec=^munge"
+                    ],
                     "execs": [
                         {
                             "exec_path": "reprompi/bin/mpibenchmark",
@@ -141,6 +185,9 @@
                     "n_nodes": 32,
                     "n_tasks": 32,
                     "time": "1:00:00",
+                    "setup_commands": [
+                        "export PMIX_MCA_psec=^munge"
+                    ],
                     "execs": [
                         {
                             "exec_path": "reprompi/bin/mpibenchmark",
