@@ -472,6 +472,30 @@
                     ]
                 },
                 {
+                    "name": "allreduce_osu",
+                    "n_nodes": 32,
+                    "n_tasks": 32,
+                    "time": "1:00:00",
+                    "setup_commands": [
+                        "module load openmpi/4/gcc/latest"
+                    ],
+                    "execs": [
+                        {
+                            "exec_path": "osu-micro-benchmarks-7.3/c/mpi/collective/blocking/osu_allreduce",
+                            "exec_params": [
+                                "-f"
+                            ],
+                            "tag": "c1"
+                        },
+                        {
+                            "exec_path": "julia bench.jl",
+                            "exec_params": [
+                            ],
+                            "tag": "j1"
+                        }
+                    ]
+                },
+                {
                     "name": "bcast",
                     "n_nodes": 32,
                     "n_tasks": 32,
